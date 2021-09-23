@@ -852,6 +852,13 @@ export const API_LIST = {
                 ROLE.PUBLIC,
             ],
         },
+        '/protected/v8/user/tnc': {
+            checksNeeded: [CHECK.ROLE],
+            // tslint:disable-next-line: object-literal-sort-keys
+            ROLE_CHECK: [
+                ROLE.PUBLIC,
+            ],
+        },
         '/protected/v8/user/feedbackV2/content/:do_id': {
             checksNeeded: [CHECK.ROLE],
             // tslint:disable-next-line: object-literal-sort-keys
@@ -1468,6 +1475,7 @@ export const API_LIST = {
         '/protected/v8/workallocation/getWOPdf/:workOrderId',
         '/protected/v8/portal/cbp/mydepartment',
         '/protected/v8/user/badge',
+        '/protected/v8/user/tnc',
         '/protected/v8/user/feedbackV2/content/:do_id',
         '/protected/v8/user/goals/action',
         '/protected/v8/user/goals/for-others',
