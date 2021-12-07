@@ -1006,7 +1006,7 @@ export const API_LIST = {
       // tslint:disable-next-line: object-literal-sort-keys
       ROLE_CHECK: [ROLE.PUBLIC],
     },
-    '/protected/v8/user/evaluate/assessment/submit/v2'{
+    '/protected/v8/user/evaluate/assessment/submit/v2':{
       checksNeeded: [CHECK.ROLE],
       // tslint:disable-next-line: object-literal-sort-keys
       ROLE_CHECK: [ROLE.PUBLIC],
