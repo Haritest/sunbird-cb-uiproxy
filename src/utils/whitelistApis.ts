@@ -1006,6 +1006,11 @@ export const API_LIST = {
       // tslint:disable-next-line: object-literal-sort-keys
       ROLE_CHECK: [ROLE.PUBLIC],
     },
+    '/protected/v8/user/evaluate/assessment/submit/v2'{
+      checksNeeded: [CHECK.ROLE],
+      // tslint:disable-next-line: object-literal-sort-keys
+      ROLE_CHECK: [ROLE.PUBLIC],
+    },
     '/public/v8/homePage/searchV6': {
       checksNeeded: [CHECK.ROLE],
       // tslint:disable-next-line: object-literal-sort-keys
@@ -1216,6 +1221,7 @@ export const API_LIST = {
     '/protected/v8/content/parents/:do_id',
     '/protected/v8/content/:do_id/parent',
     '/protected/v8/user/tnc/accept',
+    '/protected/v8/user/evaluate/assessment/submit/v2',
     '/public/v8/homePage/searchV6',
     '/public/v8/forgot-password/verify',
     '/proxies/v8/LA/api/la/contentanalytics/:contentId/:type',
