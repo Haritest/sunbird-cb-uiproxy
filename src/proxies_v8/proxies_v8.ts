@@ -18,6 +18,7 @@ import {
   proxyCreatorRoute,
   proxyCreatorSunbird,
   proxyCreatorSunbirdSearch,
+  proxyCreatorToAppentUserId,
   proxyHierarchyKnowledge,
   scormProxyCreatorRoute
 } from '../utils/proxyCreator'
@@ -26,9 +27,6 @@ import { extractUserIdFromRequest, extractUserToken } from '../utils/requestExtr
 const API_END_POINTS = {
   contentNotificationEmail: `${CONSTANTS.NOTIFICATION_SERVIC_API_BASE}/v1/notification/send/sync`,
 }
-
-const accessToken = 'x-authenticated-user-token'
-const authenticatedUserId = 'x-authenticated-userid'
 
 const client = new elasticsearch.Client({
   hosts: ['http://10.1.2.138:9200'],
@@ -213,32 +211,9 @@ proxiesV8.use('/read/content-progres/*',
   // tslint:disable-next-line: max-line-length
   proxyCreatorSunbirdSearch(express.Router(), `${CONSTANTS.SUNBIRD_PROXY_API_BASE}/course/v1/content/state/read`)
 )
-proxiesV8.use('/api/user/v2/read', async (req, res) => {
-      logInfo('Entered into read api')
-      logInfo('1.Const values >>', accessToken)
-      logInfo('2.Const values >>', authenticatedUserId)
-      const readApiResponse = await axios({
-              ...axiosRequestConfig,
-              data: {
-                headers: {
-                  // tslint:disable-next-line:max-line-length
-                  Authorization: CONSTANTS.SB_API_KEY,
-                  accessToken: extractUserToken(req),
-                  authenticatedUserId: extractUserIdFromRequest(req),
-                  org: req.headers.org,
-                  rootOrg: req.headers.rootOrg,
-                },
-              },
-              method: 'GET',
-              url:  `${CONSTANTS.KONG_API_BASE}/user/v2/read/`,
-            })
-      logInfo('readApiResponse >>>>>>' + readApiResponse)
-      if (!readApiResponse) {
-              res.status(400).send('Failed to get read api data')
-            } else {
-              res.status(200).send('Read api is working..')
-            }
-  })
+proxiesV8.use('/api/user/v2/read',
+  proxyCreatorToAppentUserId(express.Router(), `${CONSTANTS.KONG_API_BASE}/user/v2/read/`)
+)
 
 proxiesV8.use([
   '/action/questionset/v1/*',

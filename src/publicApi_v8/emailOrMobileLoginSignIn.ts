@@ -418,9 +418,8 @@ emailOrMobileLogin.post('/auth', async (req: any, res) => {
             const decodedTokenArray = decodedToken.sub.split(':')
             const userId = decodedTokenArray[decodedTokenArray.length - 1]
             req.session.userId = userId
-            req.kauth = {grant: authTokenResponse.data}
-            req.session.grant = authTokenResponse.data
-
+            req.kauth = {grant: {access_token: {content:decodedToken, token : accessToken}}}
+            req.session.grant =  {access_token: {content:decodedToken, token : accessToken}}
             logInfo('Success ! Entered into usertokenResponse..')
             await getCurrentUserRoles(req, accessToken)
             logInfo('Entered into updateRoles :' + JSON.stringify(req.session))

@@ -62,7 +62,6 @@ export class CustomKeycloak {
 
   // tslint:disable-next-line: no-any
   authenticated = async (request: any) => {
-    // console.log('Step 3: authenticated function')
     try {
       const userId = request.kauth.grant.access_token.content.sub.split(':')
       request.session.userId = userId[userId.length - 1]
@@ -100,12 +99,8 @@ export class CustomKeycloak {
 // tslint:disable-next-line: no-any
   protect = (req: any, res: express.Response, next: express.NextFunction) => {
     const keycloak = this.getKeyCloakObject(req)
-    logInfo('Entered into custom keycloak req :' + req)
+    logInfo('Entered into custom keycloak req :' + JSON.stringify(req.session))
     // tslint:disable-next-line: no-console
-    console.dir('Method 1:Entered into custom keycloak value :' + keycloak)
-    // tslint:disable-next-line: no-console
-    console.table('Method 2:Entered into custom keycloak value :' + keycloak)
-    logInfo('Method 3:Entered into custom keycloak value :' + Object.entries(keycloak))
     req.kauth.grant = req.session.grant
     keycloak.protect()(req, res, next)
   };
